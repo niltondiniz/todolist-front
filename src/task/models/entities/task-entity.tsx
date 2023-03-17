@@ -1,4 +1,4 @@
-export default class TaskModel {
+export default class TaskEntity {
     id: number;
     status: boolean;    
     description: string;

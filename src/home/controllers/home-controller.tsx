@@ -1,5 +1,5 @@
 import React from "react";
-import TaskModel from "../../shared/models/task-model";
+import TaskEntity from "../../task/models/entities/task-entity";
 import HomeView from "../views/home-view";
 
 interface Props{
@@ -7,7 +7,7 @@ interface Props{
 }
 
 interface State{
-    todoList: TaskModel[];
+    todoList: TaskEntity[];
 }
 
 export default class HomeController extends React.Component<Props, State>{
