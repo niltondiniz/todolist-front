@@ -4,6 +4,7 @@ import HomeController from './home/controllers/home-controller';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LoginController from './login/controllers/login-controller';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
