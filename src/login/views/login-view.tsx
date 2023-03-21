@@ -1,6 +1,6 @@
 import { Box, Paper } from "@mui/material";
 import { Component } from "react";
-import ResponsiveAppBar from "../../home/views/components/app-bar-component";
+
 import LogoArea from "./components/logo-area-component";
 import SocialButtons from "./components/social-buttons.component";
 import { Container, LoginContainer } from "./style";

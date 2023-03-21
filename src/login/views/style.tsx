@@ -26,7 +26,8 @@ export const VerticalContainer = styled.div`
         font-weight: 600;
         padding-left: 16px;
         padding-right: 32px;
-        margin-bottom: 15px;        
+        margin-bottom: 15px;      
+        box-shadow: 0px 1px 3px black;  
     }
 
     .facebook-color{

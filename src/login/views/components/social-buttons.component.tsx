@@ -6,7 +6,8 @@ export default function SocialButtons(){
         <VerticalContainer>
             <SocialButton type="facebook" />
             <SocialButton type="twitter" />
-            <SocialButton type="google" />            
+            <SocialButton type="google" />
+            <SocialButton type="github" />            
         </VerticalContainer>
     )
 }
