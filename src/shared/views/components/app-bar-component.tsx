@@ -26,7 +26,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar elevation={3} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
 
@@ -38,11 +38,9 @@ function ResponsiveAppBar() {
             component="a"
             href="/"
             sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
+              mr: 2,              
               fontFamily: 'Roboto',
-              fontWeight: 400,
-              letterSpacing: '.3rem',
+              fontWeight: 500,              
               color: 'inherit',
               textDecoration: 'none',
             }}

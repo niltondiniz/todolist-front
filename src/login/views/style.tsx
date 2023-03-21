@@ -3,8 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: #FFCC99;
+    justify-content: center;    
+    height: 100%;
+    background-color: #dfdfdf;
 `
 
 export const VerticalContainer = styled.div`
@@ -30,6 +31,10 @@ export const VerticalContainer = styled.div`
         box-shadow: 0px 1px 3px black;  
     }
 
+    a{
+        text-decoration: none;
+    }
+
     .facebook-color{
         background-color: #4267B2;
     }
@@ -40,7 +45,11 @@ export const VerticalContainer = styled.div`
 
     .twitter-color{
         background-color: #1DA1F2;
-    }    
+    } 
+    
+    .github-color{
+        background-color: #000000;
+    } 
 `
 
 export const LoginContainer = styled.div`
@@ -65,7 +74,7 @@ export const LoginContainer = styled.div`
 export const LogoContainer = styled.div`
     display: flex;
     align-items: center;
-    justify-content: start;   
+    justify-content: center;   
     flex-direction: column; 
     height: 300px;   
 
