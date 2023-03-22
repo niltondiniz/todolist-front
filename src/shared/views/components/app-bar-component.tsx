@@ -14,7 +14,11 @@ import { Link } from 'react-router-dom';
 
 const settings = ['Profile', 'Logout'];
 
-function ResponsiveAppBar() {  
+interface Props{
+  height?: number;
+}
+
+function ResponsiveAppBar(props: Props) {  
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -26,12 +30,15 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const { height } = props;
+  
+
   return (
-    <AppBar elevation={3} position="static">
+    <AppBar elevation={3} position="static" sx={{height: height !== undefined ? height : 65}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
 
-          <SelfImprovement color='secondary' sx={{ fontSize: 30, display: { md: 'flex' }, mr: 1 }} />
+          <Link to="/home/"><SelfImprovement color='secondary' sx={{ fontSize: 30, display: { md: 'flex' }, mr: 1 }} /></Link>
           
           <Typography
             variant="h6"
@@ -53,7 +60,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Nemy Sharp" src="https://niltondiniz.github.io/curriculo/images/spinner_2.jpg" />
+                <Avatar alt="Nemy Sharp" src="https://zipmex.com/static/d1af016df3c4adadee8d863e54e82331/Twitter-NFT-profile.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -74,7 +81,7 @@ function ResponsiveAppBar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Link to="/profile/"><Typography textAlign="center">{setting}</Typography></Link>
+                  <Link style={{ textDecoration: 'none' }} to={`/${setting.toLowerCase()}/`}><Typography textAlign="center">{setting}</Typography></Link>
                 </MenuItem>
               ))}
             </Menu>

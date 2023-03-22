@@ -15,19 +15,22 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserController from './user/controllers/user-controller';
 
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+  
   <ThemeProvider theme={themeOptions}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginController />} />
+        <Route path="/logout" element={<LoginController />} />
         <Route path="/home" element={<HomeController />} />
         <Route path="/profile" element={<UserController />} />
       </Routes>    
     </BrowserRouter>
-  </ThemeProvider>
+  </ThemeProvider>  
 );
 
 // If you want to start measuring performance in your app, pass a function

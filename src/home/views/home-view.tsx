@@ -4,6 +4,7 @@ import React from "react";
 import { Plus } from "react-bootstrap-icons";
 import ResponsiveAppBar from "../../shared/views/components/app-bar-component";
 import DialogFormComponent from "../../shared/views/components/dialog-form-component";
+import { ContainerScreen } from "../../shared/views/components/styled";
 import { ContainerTask } from "./style";
 
 interface Props{
@@ -52,7 +53,7 @@ export default class HomeView extends React.Component<Props, State>{
         const {dialogUpdateOpen, taskIdToUpdate, dialogCancelButtonText, dialogConfirmButtonText, dialogLabel, dialogMessage, dialogTitle} = this.state;
         console.log(dialogUpdateOpen);
         return(
-            <div className="vh-100">
+            <ContainerScreen className="vh-100">
                 <ResponsiveAppBar></ResponsiveAppBar>
                 <ContainerTask className="mt-5"> 
                     <Box
@@ -122,7 +123,7 @@ export default class HomeView extends React.Component<Props, State>{
                     dialogTitle={dialogTitle}
                     
                 />
-            </div>
+            </ContainerScreen>
         )
     }
 }
