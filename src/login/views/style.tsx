@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;    
-    height: 100%;
+    justify-content: center;        
     background-color: #dfdfdf;
+    margin-top: 10%;
 `
 
 export const VerticalContainer = styled.div`
