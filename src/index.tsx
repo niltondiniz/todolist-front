@@ -12,6 +12,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import UserController from './user/controllers/user-controller';
 
 
 const root = ReactDOM.createRoot(
@@ -23,6 +24,7 @@ root.render(
       <Routes>
         <Route path="/" element={<LoginController />} />
         <Route path="/home" element={<HomeController />} />
+        <Route path="/profile" element={<UserController />} />
       </Routes>    
     </BrowserRouter>
   </ThemeProvider>

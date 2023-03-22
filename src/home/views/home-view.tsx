@@ -64,7 +64,7 @@ export default class HomeView extends React.Component<Props, State>{
                         <Paper sx={{height: '100%', width: '100%'}}>
                             
                             <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                                <Box sx={{ display: 'flex', width: 'auto', mb: 0, mx: 2 }}>
+                                <Box sx={{ display: 'flex', width: 'auto', mt: 2,  mx: 2 }}>
                                     <TextField label="Type here your new task" fullWidth sx={{ mr: 1 }} />
                                     <Button variant="contained" color="primary">
                                         <Plus fontSize={30} fontWeight={800}/>

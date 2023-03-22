@@ -10,8 +10,9 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { SelfImprovement } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Logout'];
 
 function ResponsiveAppBar() {  
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -73,7 +74,7 @@ function ResponsiveAppBar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Link to="/profile/"><Typography textAlign="center">{setting}</Typography></Link>
                 </MenuItem>
               ))}
             </Menu>

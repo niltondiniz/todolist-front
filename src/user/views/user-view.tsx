@@ -2,10 +2,10 @@ import { Box, Container, Paper } from "@mui/material";
 import React from "react";
 import { ContainerUser } from "./style";
 
-export default class userView extends React.Component{
+export default class UserView extends React.Component{
     render() {
         return(
-            <Container>
+            <ContainerUser>
                 <Box sx={{
                     display: 'flex',
                     flexWrap: 'wrap',
@@ -21,7 +21,7 @@ export default class userView extends React.Component{
                         </ContainerUser>
                     </Paper>
                 </Box>
-            </Container>
+            </ContainerUser>
         );
     }
 }
