@@ -1,49 +1,73 @@
 import React from "react";
-import TaskEntity from "../models/entities/task-entity";
-import TaskFormComponent from "../views/components/task-form-component";
-import TaskTabGroup from "../views/components/task-tab-group";
+import { TaskEntity, User } from "../models/entities/task-entity";
+import TaskView from "../views/task-view";
+import CreateTaskService from "../models/services/create-task-service";
+import getTasksService from "../models/services/get-task-service";
+import { DeleteTaskService } from "../models/services/delete-task-service";
+import UpdateTaskService from "../models/services/update-task-service";
 
 
-interface Props{
+interface Props {
     userId: number;
 }
 
-interface State{
+interface State {
     tasks: TaskEntity[];
+    task: string;    
 }
 
 export default class TaskController extends React.Component<Props, State>{
-    
-    constructor(props: Props){
+
+    constructor(props: Props) {
         super(props);
-        this.state = {tasks: null};
+        this.state = { tasks: [], task: '' };
     }
 
-    handleSubmit = (event) => {
+    handleChange = (event) => {
+        console.log(this.state);
+        this.setState({ [event.target.name]: event.target.value } as Pick<State, keyof State>);
+
+    }
+
+    handleSubmit = async (event) => {
         event.preventDefault();
 
-        console.log('Vai add task');
+        const { tasks, task } = this.state;
+        const date = Date.now();
+        var newTask = new TaskEntity(true, task, date);
+        var user = new User();
+        user.id = this.props.userId;
+        newTask.user = user;
         
-        /*const userModel = {name: this.state.name, email: this.state.email, message: this.state.message} as UserModel;
-        postUserData(userModel)
-        .then(response => {
-        
-          if(response.status == 201){
-            this.setState({name: this.state.name, email: this.state.email, message: this.state.message, formSent: true})
-          }
-    
-        });*/
-      }
+        const createdTask = await CreateTaskService(newTask);
+        tasks.push(createdTask);
 
-    private getTasks(): void{
+        this.setState({ tasks: tasks, task: '' });
+    }
+
+    handleDeleteTask = async (taskId) => {
+        const deleteResult = await DeleteTaskService(taskId);
+        if(deleteResult === 200){
+            this.setState({ tasks: this.state.tasks.filter(task => task.id !== taskId) });
+        }else{
+            alert('Ocorreu um erro ao excluir a tarefa');
+        }
+    }
+
+    handleUpdateTask = async (task: TaskEntity) => {
+        const updateResult = await UpdateTaskService(task);
+        if(updateResult){
+            //Atualizar task na lista
+            //Mensagem de sucesso
+        }else{
+            alert('Ocorreu um erro ao editar a tarefa');
+        }
+    }
+
+    private async getTasks(): Promise<void> {
         var tasks: TaskEntity[] = [];
-        tasks.push(new TaskEntity(true, 'Teste de tarefa', 12345));
-        tasks.push(new TaskEntity(true, 'Teste de tarefa', 12345));
-        tasks.push(new TaskEntity(true, 'Teste de tarefa', 12345));
-
-        tasks.push(new TaskEntity(false, 'Teste de tarefa', 12345));
-        tasks.push(new TaskEntity(false, 'Teste de tarefa', 12345));
-        tasks.push(new TaskEntity(false, 'Teste de tarefa', 12345));
+        
+        tasks = await getTasksService(this.props.userId);
         this.setState({tasks: tasks});
     }
 
@@ -51,18 +75,23 @@ export default class TaskController extends React.Component<Props, State>{
         this.getTasks();
     }
 
-    render(){
+    render() {
+
+        const { task, tasks } = this.state;
+
+
+
         return (
-        <div>
-            <TaskFormComponent handleSubmit={this.handleSubmit} /> 
-            <TaskTabGroup 
-                    firstTabDescription="Novas Tarefas" 
-                    secondTabDescription="Tarefas Concluídas"
-                    tasks={this.state.tasks}
-                /> 
-        </div>
+            <TaskView 
+                handleSubmit={this.handleSubmit} 
+                handleChange={this.handleChange} 
+                task={task} 
+                tasks={tasks} 
+                handleDeleteTask={this.handleDeleteTask} 
+                handleUpdateTask={this.handleUpdateTask}
+            />
         )
-        
+
     }
-    
+
 }

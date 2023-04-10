@@ -1,5 +1,6 @@
 import React from "react";
-import TaskEntity from "../../task/models/entities/task-entity";
+import getUserFromCookies from "../../shared/utils/get-user-from-cookies-util";
+import {TaskEntity} from "../../task/models/entities/task-entity";
 import HomeView from "../views/home-view";
 
 
@@ -20,7 +21,7 @@ export default class HomeController extends React.Component<Props, State>{
 
     render(){
         return(
-            <HomeView></HomeView>
+            <HomeView user={getUserFromCookies()}/>
         )
     }
 }

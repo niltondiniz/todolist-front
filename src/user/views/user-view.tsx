@@ -1,21 +1,25 @@
-import { Avatar, Box, Button, Paper, TextField, Typography } from "@mui/material";
-import { DesktopDatePicker, StaticDatePicker } from "@mui/x-date-pickers";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker/DatePicker";
+import { Avatar, Box, Button, Paper, TextField } from "@mui/material";
+import { DesktopDatePicker } from "@mui/x-date-pickers";
 import React from "react";
 import ResponsiveAppBar from "../../shared/views/components/app-bar-component";
 import { ContainerForm } from "./style";
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from "dayjs";
+import 'dayjs/locale/pt-br'; 
 import { ContainerScreen } from "../../shared/views/components/styled";
+import UserModel from "../../shared/models/user-model";
 
+interface Props{
+    user?: UserModel | undefined;
+}
 
-export default class UserView extends React.Component {
-    render() {
+export default class UserView extends React.Component<Props> {
+    render() {        
         return (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <ContainerScreen className="vh-100">
-                    <ResponsiveAppBar height={200} />
+                    <ResponsiveAppBar user={this.props.user} height={200} />
                     <Box sx={{
                         display: 'flex',
                         '& > :not(style)': {
@@ -35,7 +39,7 @@ export default class UserView extends React.Component {
                                     position: 'absolute',
                                     top: -60,
                                     boxShadow: 10
-                                }} src="https://zipmex.com/static/d1af016df3c4adadee8d863e54e82331/Twitter-NFT-profile.jpg" />
+                                }} src={this.props.user.profileImageUrl} />
                                 <Box
                                     component="form"
                                     sx={{
@@ -56,24 +60,25 @@ export default class UserView extends React.Component {
                                         required
                                         id="firstName"
                                         label="First Name"
-                                        defaultValue="Nilton"
+                                        defaultValue={this.props.user.firstName}
                                     />
                                     <TextField
                                         fullWidth
                                         required
                                         id="lastName"
                                         label="Last Name"
-                                        defaultValue="Diniz"
+                                        defaultValue={this.props.user.lastName}
                                     />
                                     <TextField
                                         disabled
                                         id="email"
                                         label="Email"
-                                        defaultValue="niltondiniz@niltondiniz.com"
+                                        defaultValue={this.props.user.email}
                                     />
                                     <DesktopDatePicker
+                                        format="DD/MM/YYYY"
                                         label="Birthday"
-                                        defaultValue={dayjs('2022-04-17')}
+                                        defaultValue={dayjs(dayjs.unix(this.props.user.birthday).format('YYYY-MM-DD'))}
                                     />
                                     <div>                                        
                                         <Button sx={{ m: 3 }} variant="contained" type="submit" color="primary">Cancel</Button>

@@ -10,19 +10,21 @@ import DialogTitle from '@mui/material/DialogTitle';
 interface Props{
     propsOpen: boolean;
     taskId: number;
-    handleClose: any;
+    handleConfirm: any;
+    handleCancel: any;
     dialogTitle: string;
     dialogMessage: string;
     dialogLabel: string;
     dialogButtonCancelText: string;
     dialogButtonConfirmText: string;
+    handleChange: any;
 }
 
 export default function DialogFormComponent(props: Props) {
 
   return (
     <div>      
-      <Dialog open={props.propsOpen} onClose={props.handleClose}>
+      <Dialog open={props.propsOpen} onClose={props.handleConfirm}>
         <DialogTitle>{props.dialogTitle}</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -33,16 +35,19 @@ export default function DialogFormComponent(props: Props) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="task"
+            name="task"
             label={props.dialogLabel}
             type="text"
             fullWidth
-            variant="standard"            
+            variant="standard"
+            onChange={props.handleChange}
+
           /> : null}
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.handleClose}>{props.dialogButtonCancelText}</Button>
-          <Button onClick={props.handleClose}>{props.dialogButtonConfirmText}</Button>
+          <Button onClick={props.handleCancel}>{props.dialogButtonCancelText}</Button>
+          <Button onClick={props.handleConfirm}>{props.dialogButtonConfirmText}</Button>
         </DialogActions>
       </Dialog>
     </div>

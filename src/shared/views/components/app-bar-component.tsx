@@ -11,15 +11,21 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { SelfImprovement } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
+import UserModel from '../../models/user-model';
+import { useState } from 'react';
+import profile from '../../../assets/profile_image.png';
+import profile2 from '../../../assets/profile_image_2.webp';
+
 
 const settings = ['Profile', 'Logout'];
 
 interface Props{
   height?: number;
+  user: UserModel;
 }
 
 function ResponsiveAppBar(props: Props) {  
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);  
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -30,8 +36,10 @@ function ResponsiveAppBar(props: Props) {
     setAnchorElUser(null);
   };
 
-  const { height } = props;
-  
+  const { height, user } = props;
+
+  console.log(user);
+
 
   return (
     <AppBar elevation={3} position="static" sx={{height: height !== undefined ? height : 65}}>
@@ -58,9 +66,9 @@ function ResponsiveAppBar(props: Props) {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} />
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Nemy Sharp" src="https://zipmex.com/static/d1af016df3c4adadee8d863e54e82331/Twitter-NFT-profile.jpg" />
+            <Tooltip title="Profile Settings">
+              <IconButton onClick={ user != undefined ? handleOpenUserMenu : () => {}} sx={{ p: 0 }}>
+                <Avatar alt={user !== undefined ? `${user.firstName} ${user.lastName}` : "No body"} src={user !== undefined ? user.profileImageUrl : profile2} />
               </IconButton>
             </Tooltip>
             <Menu
