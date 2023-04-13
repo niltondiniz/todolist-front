@@ -29,11 +29,9 @@ export default function LoginController() {
 
     async function sendAuthCode(authCode: string){
         
-        console.log(authCode);
+        
         const response = await auth(authCode['access_token']);
         const tokenDecoded = jwtDecode(response['token']);
-
-        console.log(response);
 
         Cookies.set(
             'access_token', 

@@ -17,7 +17,7 @@ interface Props{
     dialogLabel: string;
     dialogButtonCancelText: string;
     dialogButtonConfirmText: string;
-    handleChange: any;
+    handleChange: any;    
 }
 
 export default function DialogFormComponent(props: Props) {
@@ -40,7 +40,7 @@ export default function DialogFormComponent(props: Props) {
             label={props.dialogLabel}
             type="text"
             fullWidth
-            variant="standard"
+            variant="standard"            
             onChange={props.handleChange}
 
           /> : null}

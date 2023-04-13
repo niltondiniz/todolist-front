@@ -50,7 +50,7 @@ export default class TaskView extends React.Component<Props, State>{
             dialogCancelButtonText: "Cancel", 
             dialogConfirmButtonText: "Confirm", 
             dialogLabel: "Task...", 
-            dialogMessage: "Would you update this task?", 
+            dialogMessage: `Actual task: ${task.taskDescription}`, 
             dialogTitle: "Update task",
             taskToWork: task 
         })
@@ -72,7 +72,8 @@ export default class TaskView extends React.Component<Props, State>{
 
         if (this.state.dialogLabel === "") {
             this.props.handleDeleteTask(this.state.taskToWork.id);
-        }else{
+        }else{            
+            this.state.taskToWork.taskDescription = this.props.task;
             this.props.handleUpdateTask(this.state.taskToWork);
         }
 
@@ -80,8 +81,15 @@ export default class TaskView extends React.Component<Props, State>{
     }
 
     private handleCancelDialog = () => {
-        this.setState({ dialogUpdateOpen: false, taskToWork: null });
-        console.log('Cancelou o modal');
+        this.setState({ dialogUpdateOpen: false, taskToWork: null });        
+    }
+
+    private handleCheckboxUpdateValue = (task: TaskEntity, newStatus: boolean) => {
+        
+        task.status = newStatus;
+        this.state.taskToWork = task;
+        this.props.handleUpdateTask(this.state.taskToWork);
+
     }
 
     render() {
@@ -119,11 +127,11 @@ export default class TaskView extends React.Component<Props, State>{
                                 <ListItem key={item.id} disablePadding>
                                     <ListItemButton>
                                         <ListItemIcon>
-                                            <Checkbox color="secondary" />
+                                            <Checkbox onClick={() => this.handleCheckboxUpdateValue(item, !item.status)} checked={item.status} value={item.status} color="secondary" />
                                         </ListItemIcon>
                                         <TaskTextComponent text={item.taskDescription} />
                                     </ListItemButton>
-                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', marginRight: 5 }}>
                                         <IconButton onClick={() => this.handleDeleteModalOpen(item)}>
                                             <Delete color="secondary" />
                                         </IconButton>
@@ -145,7 +153,7 @@ export default class TaskView extends React.Component<Props, State>{
                     dialogLabel={dialogLabel}
                     dialogMessage={dialogMessage}
                     dialogTitle={dialogTitle}
-                    handleChange={this.props.handleChange}
+                    handleChange={this.props.handleChange}                    
 
                 />
             </Box>

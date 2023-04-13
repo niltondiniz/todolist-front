@@ -8,8 +8,6 @@ export default async function getTasksService(userId: number){
         }
     );
 
-    const obj = await result.json();
-    const tasks = obj;
-    console.log(tasks);
+    const tasks = await result.json();    
     return tasks;
 }

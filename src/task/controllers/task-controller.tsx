@@ -5,6 +5,7 @@ import CreateTaskService from "../models/services/create-task-service";
 import getTasksService from "../models/services/get-task-service";
 import { DeleteTaskService } from "../models/services/delete-task-service";
 import UpdateTaskService from "../models/services/update-task-service";
+import { ThirtyFpsSelect } from "@mui/icons-material";
 
 
 interface Props {
@@ -13,7 +14,7 @@ interface Props {
 
 interface State {
     tasks: TaskEntity[];
-    task: string;    
+    task: string;
 }
 
 export default class TaskController extends React.Component<Props, State>{
@@ -24,51 +25,52 @@ export default class TaskController extends React.Component<Props, State>{
     }
 
     handleChange = (event) => {
-        console.log(this.state);
         this.setState({ [event.target.name]: event.target.value } as Pick<State, keyof State>);
-
     }
 
     handleSubmit = async (event) => {
         event.preventDefault();
 
         const { tasks, task } = this.state;
-        const date = Date.now();
-        var newTask = new TaskEntity(true, task, date);
-        var user = new User();
-        user.id = this.props.userId;
-        newTask.user = user;
-        
-        const createdTask = await CreateTaskService(newTask);
-        tasks.push(createdTask);
 
-        this.setState({ tasks: tasks, task: '' });
+        if (task !== "") {
+            const date = Date.now();
+            var user = new User();
+
+            user.id = this.props.userId;
+
+            var newTask = new TaskEntity(false, task, date, user);
+
+            const createdTask = await CreateTaskService(newTask);
+            tasks.push(createdTask);
+            this.setState({ tasks: tasks, task: '' });
+        }
+
     }
 
     handleDeleteTask = async (taskId) => {
         const deleteResult = await DeleteTaskService(taskId);
-        if(deleteResult === 200){
+        if (deleteResult === 200) {
             this.setState({ tasks: this.state.tasks.filter(task => task.id !== taskId) });
-        }else{
+        } else {
             alert('Ocorreu um erro ao excluir a tarefa');
         }
     }
 
     handleUpdateTask = async (task: TaskEntity) => {
+
         const updateResult = await UpdateTaskService(task);
-        if(updateResult){
-            //Atualizar task na lista
-            //Mensagem de sucesso
-        }else{
+        if (updateResult) {
+            this.getTasks();
+        } else {
             alert('Ocorreu um erro ao editar a tarefa');
         }
     }
 
     private async getTasks(): Promise<void> {
         var tasks: TaskEntity[] = [];
-        
         tasks = await getTasksService(this.props.userId);
-        this.setState({tasks: tasks});
+        this.setState({ tasks: tasks });
     }
 
     componentDidMount(): void {
@@ -79,15 +81,13 @@ export default class TaskController extends React.Component<Props, State>{
 
         const { task, tasks } = this.state;
 
-
-
         return (
-            <TaskView 
-                handleSubmit={this.handleSubmit} 
-                handleChange={this.handleChange} 
-                task={task} 
-                tasks={tasks} 
-                handleDeleteTask={this.handleDeleteTask} 
+            <TaskView
+                handleSubmit={this.handleSubmit}
+                handleChange={this.handleChange}
+                task={task}
+                tasks={tasks}
+                handleDeleteTask={this.handleDeleteTask}
                 handleUpdateTask={this.handleUpdateTask}
             />
         )

@@ -12,7 +12,6 @@ export default async function CreateTaskService(task: TaskEntity): Promise<TaskE
         }
     );
 
-    const createdTask = await result.json() as TaskEntity;
-    console.log(createdTask);
+    const createdTask = await result.json() as TaskEntity;    
     return createdTask;
 }

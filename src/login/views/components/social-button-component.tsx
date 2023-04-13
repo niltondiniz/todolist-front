@@ -16,8 +16,7 @@ export default function SocialButton(props: Props) {
     const { type, text, sendAuthCode } = props;
 
     const login = useGoogleLogin({
-        onSuccess: credentialResponse => {
-            console.log(credentialResponse);
+        onSuccess: credentialResponse => {            
             sendAuthCode(credentialResponse);
         },
     });

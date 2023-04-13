@@ -1,6 +1,6 @@
 import { Box, Paper } from "@mui/material";
 import { Component } from "react";
-import UserModel from "../../shared/models/user-model";
+import UserEntity from "../../shared/models/user-model";
 import ResponsiveAppBar from "../../shared/views/components/app-bar-component";
 import { ContainerScreen } from "../../shared/views/components/styled";
 
@@ -14,7 +14,7 @@ interface State {
 
 interface Props {
     sendAuthCode: any;
-    user: UserModel;
+    user: UserEntity;
 }
 
 export default class LoginView extends Component<Props, State>{

@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { SelfImprovement } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import UserModel from '../../models/user-model';
+import UserEntity from '../../models/user-model';
 import { useState } from 'react';
 import profile from '../../../assets/profile_image.png';
 import profile2 from '../../../assets/profile_image_2.webp';
@@ -21,7 +21,7 @@ const settings = ['Profile', 'Logout'];
 
 interface Props{
   height?: number;
-  user: UserModel;
+  user: UserEntity;
 }
 
 function ResponsiveAppBar(props: Props) {  
@@ -36,10 +36,7 @@ function ResponsiveAppBar(props: Props) {
     setAnchorElUser(null);
   };
 
-  const { height, user } = props;
-
-  console.log(user);
-
+  const { height, user } = props;  
 
   return (
     <AppBar elevation={3} position="static" sx={{height: height !== undefined ? height : 65}}>
