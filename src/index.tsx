@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginController from './login/controllers/login-controller';
 import { ThemeProvider } from '@mui/material';
-import { themeOptions } from './shared/config/theme-options';
+import { themeOptions } from './shared/utils/theme-options';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -14,6 +14,7 @@ import { Routes, Route, HashRouter } from 'react-router-dom';
 import UserController from './user/controllers/user-controller';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import LogoutController from './login/controllers/logout-controller';
+import isAutenticated from './shared/utils/is-autenticated';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -25,10 +26,10 @@ root.render(
       <HashRouter>
         <Routes>
           <Route path="/" element={<LoginController/>} />
-          <Route path="/login" element={<LoginController/>} />
-          <Route path="/logout" element={<LogoutController />} />
-          <Route path="/home" element={<HomeController />} />
-          <Route path="/profile" element={<UserController />} />
+          <Route path="/login" element={ <LoginController/>} />
+          <Route path="/logout" element={isAutenticated() ? <LogoutController /> : <LoginController />} />
+          <Route path="/home" element={isAutenticated() ? <HomeController /> : <LoginController />} />
+          <Route path="/profile" element={isAutenticated() ? <UserController /> : <LoginController />} />
         </Routes>
       </HashRouter>
     </GoogleOAuthProvider>
